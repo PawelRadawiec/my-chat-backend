@@ -5,6 +5,8 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class SystemUserService implements MySystemUser {
 
@@ -16,7 +18,7 @@ public class SystemUserService implements MySystemUser {
 
     @Override
     public SystemUser addUser(SystemUser user, SimpMessageHeaderAccessor accessor) {
-        accessor.getSessionAttributes().put("username", user.getUsername());
+        Objects.requireNonNull(accessor.getSessionAttributes()).put("username", user.getUsername());
         simpMessagingTemplate.convertAndSend("/topic/users", user);
         return user;
     }

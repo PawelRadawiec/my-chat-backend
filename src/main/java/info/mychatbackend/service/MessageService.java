@@ -29,7 +29,7 @@ public class MessageService implements MyChatMessage {
             this.simpMessagingTemplate.convertAndSend(topicUrl + sendTo, message);
             this.simpMessagingTemplate.convertAndSend(topicUrl + message.getFrom(), message);
         } else {
-            this.simpMessagingTemplate.convertAndSend("/topic", message);
+            this.simpMessagingTemplate.convertAndSend("/topic/message", message);
         }
         return message;
     }
