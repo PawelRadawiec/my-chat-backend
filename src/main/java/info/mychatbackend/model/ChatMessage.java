@@ -1,5 +1,6 @@
 package info.mychatbackend.model;
 
+import info.mychatbackend.chatContent.model.ChatContent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
