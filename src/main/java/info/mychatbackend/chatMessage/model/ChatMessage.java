@@ -1,4 +1,4 @@
-package info.mychatbackend.model;
+package info.mychatbackend.chatMessage.model;
 
 import info.mychatbackend.chatContent.model.ChatContent;
 import lombok.Getter;

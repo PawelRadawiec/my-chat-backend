@@ -1,6 +1,6 @@
 package info.mychatbackend.controller;
 
-import info.mychatbackend.model.ChatMessage;
+import info.mychatbackend.chatMessage.model.ChatMessage;
 import info.mychatbackend.service.MessageService;
 import info.mychatbackend.service.MyChatMessage;
 import org.springframework.messaging.handler.annotation.MessageMapping;

@@ -15,7 +15,7 @@ public class ChatContentService implements ChatContentOperations {
     public ChatContentService(ChatRepository repository) {
         this.repository = repository;
     }
-    
+
     @Override
     public Optional<ChatContent> create(ChatContent content) {
         return repository.save(content);
