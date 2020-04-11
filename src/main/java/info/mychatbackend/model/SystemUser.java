@@ -1,5 +1,6 @@
 package info.mychatbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import info.mychatbackend.chatContent.model.ChatContent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +22,7 @@ public class SystemUser {
     private String username;
 
     @OneToOne(mappedBy = "owner")
+    @JsonBackReference
     private ChatContent content;
 
 }

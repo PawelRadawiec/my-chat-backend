@@ -7,10 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Join;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.Optional;
 
 @Repository
@@ -42,8 +39,8 @@ public class ChatRepository {
     public Optional<ChatContent> findByUsername(String username) {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<ChatContent> query = builder.createQuery(ChatContent.class);
-        Root<SystemUser> systemUserRoot = query.from(SystemUser.class);
-        Join<SystemUser, ChatContent> systemUserChatContentJoin = systemUserRoot.join("content");
+        Root<ChatContent> chatContentRoot = query.from(ChatContent.class);
+        Join<ChatContent, SystemUser> systemUserChatContentJoin = chatContentRoot.join("owner");
         query.where(
                 builder.equal(systemUserChatContentJoin.get("username"), username)
         );

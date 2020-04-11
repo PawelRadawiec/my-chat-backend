@@ -1,5 +1,6 @@
 package info.mychatbackend.chatContent.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import info.mychatbackend.chatMessage.model.ChatMessage;
 import info.mychatbackend.model.SystemUser;
 import lombok.Getter;
@@ -23,6 +24,7 @@ public class ChatContent {
 
     @OneToOne()
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonManagedReference
     private SystemUser owner;
 
     @OneToMany(
