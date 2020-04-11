@@ -31,5 +31,10 @@ public class ChatContentService implements ChatContentOperations {
         return repository.findById(id);
     }
 
+    @Override
+    public Optional<ChatContent> findByUsername(String username) {
+        return repository.findByUsername(username);
+    }
+
 
 }

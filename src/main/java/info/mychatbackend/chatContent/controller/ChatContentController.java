@@ -23,8 +23,13 @@ public class ChatContentController {
     }
 
     @PostMapping(value = "/{id}")
-    public ResponseEntity getByIf(@PathVariable Long id) {
+    public ResponseEntity getById(@PathVariable Long id) {
         return new ResponseEntity<>(operations.findById(id), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/{username}")
+    public ResponseEntity getByUsername(@PathVariable("username") String username) {
+        return new ResponseEntity<>(operations.findByUsername(username), HttpStatus.OK);
     }
 
 
