@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
@@ -15,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "chat_content")
-public class ChatContent {
+public class ChatContent implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -30,6 +31,7 @@ public class ChatContent {
     @OneToMany(
             mappedBy = "content"
     )
+    @JsonManagedReference
     private List<ChatMessage> messages;
 
 }

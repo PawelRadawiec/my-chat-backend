@@ -4,7 +4,6 @@ import info.mychatbackend.chatMessage.model.ChatMessage;
 import info.mychatbackend.service.MessageService;
 import info.mychatbackend.service.MyChatMessage;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,12 +27,6 @@ public class ChatController {
     public ChatMessage addUser(ChatMessage chatMessage,
                                SimpMessageHeaderAccessor headerAccessor) {
         return messageService.addUser(headerAccessor, chatMessage);
-    }
-
-    @MessageMapping("/send/message")
-    @SendTo("/topic/message")
-    public ChatMessage sendMessage(@Payload ChatMessage chatMessage) {
-        return chatMessage;
     }
 
 

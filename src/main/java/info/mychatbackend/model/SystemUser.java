@@ -7,13 +7,14 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
 @Table(name = "chat_system_user")
-public class SystemUser {
+public class SystemUser implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
