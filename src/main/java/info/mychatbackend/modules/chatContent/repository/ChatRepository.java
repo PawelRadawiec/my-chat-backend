@@ -1,6 +1,7 @@
 package info.mychatbackend.modules.chatContent.repository;
 
 import info.mychatbackend.modules.chatContent.model.ChatContent;
+import info.mychatbackend.modules.chatMessage.model.ChatMessage;
 import info.mychatbackend.modules.chatSystemUser.model.ChatSystemUser;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,10 +42,25 @@ public class ChatRepository {
         CriteriaQuery<ChatContent> query = builder.createQuery(ChatContent.class);
         Root<ChatContent> chatContentRoot = query.from(ChatContent.class);
         Join<ChatContent, ChatSystemUser> systemUserChatContentJoin = chatContentRoot.join("owner");
-        query.where(
-                builder.equal(systemUserChatContentJoin.get("username"), username)
-        );
+        Join<ChatContent, ChatMessage> messageChatContentJoin = chatContentRoot.join("messages");
+
+        systemUserChatContentJoin.on(builder.equal(systemUserChatContentJoin.get("username"), username));
+        messageChatContentJoin.on(builder.equal(messageChatContentJoin.get("from"), "pawelr"));
+
         TypedQuery<ChatContent> typedQuery = em.createQuery(query);
         return typedQuery.getResultList().stream().findFirst();
     }
+
+    // just for test
+//        public Optional<ChatContent> findByUsername (String username){
+//            TypedQuery<ChatContent> query = em.createQuery(
+//                    "select cc from ChatContent cc" +
+//                            "  join cc.owner ssu on ssu.username = ?1" +
+//                            "  join cc.correspondent cor " +
+//                            "  join cc.messages cm", ChatContent.class);
+//            query.setParameter(1, username);
+//            return query.getResultList().stream().findFirst();
+//        }
+
+
 }

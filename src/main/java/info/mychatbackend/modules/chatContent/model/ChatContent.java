@@ -28,6 +28,11 @@ public class ChatContent implements Serializable {
     @JsonManagedReference
     private ChatSystemUser owner;
 
+    @OneToOne()
+    @JoinColumn(name = "correspondent_id", referencedColumnName = "id")
+    @JsonManagedReference
+    private ChatSystemUser correspondent;
+
     @OneToMany(
             mappedBy = "content"
     )
