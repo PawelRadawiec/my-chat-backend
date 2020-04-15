@@ -1,6 +1,6 @@
 package info.mychatbackend.eventListener;
 
-import info.mychatbackend.model.ChatMessage;
+import info.mychatbackend.modules.chatMessage.model.ChatMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
