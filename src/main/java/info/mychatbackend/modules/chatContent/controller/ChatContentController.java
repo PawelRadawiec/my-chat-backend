@@ -1,7 +1,7 @@
-package info.mychatbackend.chatContent.controller;
+package info.mychatbackend.modules.chatContent.controller;
 
-import info.mychatbackend.chatContent.model.ChatContent;
-import info.mychatbackend.chatContent.service.ChatContentOperations;
+import info.mychatbackend.modules.chatContent.model.ChatContent;
+import info.mychatbackend.modules.chatContent.service.ChatContentOperations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

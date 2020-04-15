@@ -1,8 +1,8 @@
-package info.mychatbackend.chatContent.service;
+package info.mychatbackend.modules.chatContent.service;
 
 
-import info.mychatbackend.chatContent.model.ChatContent;
-import info.mychatbackend.chatContent.repository.ChatRepository;
+import info.mychatbackend.modules.chatContent.model.ChatContent;
+import info.mychatbackend.modules.chatContent.repository.ChatRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

@@ -1,6 +1,6 @@
-package info.mychatbackend.chatMessage.repository;
+package info.mychatbackend.modules.chatMessage.repository;
 
-import info.mychatbackend.chatMessage.model.ChatMessage;
+import info.mychatbackend.modules.chatMessage.model.ChatMessage;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;

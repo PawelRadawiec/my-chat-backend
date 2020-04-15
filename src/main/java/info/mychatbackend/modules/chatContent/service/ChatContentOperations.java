@@ -1,6 +1,6 @@
-package info.mychatbackend.chatContent.service;
+package info.mychatbackend.modules.chatContent.service;
 
-import info.mychatbackend.chatContent.model.ChatContent;
+import info.mychatbackend.modules.chatContent.model.ChatContent;
 
 import java.util.Optional;
 

@@ -1,6 +1,6 @@
-package info.mychatbackend.chatContent.repository;
+package info.mychatbackend.modules.chatContent.repository;
 
-import info.mychatbackend.chatContent.model.ChatContent;
+import info.mychatbackend.modules.chatContent.model.ChatContent;
 import info.mychatbackend.model.SystemUser;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

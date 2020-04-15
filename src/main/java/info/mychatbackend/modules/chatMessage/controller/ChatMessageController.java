@@ -1,7 +1,7 @@
-package info.mychatbackend.chatMessage.controller;
+package info.mychatbackend.modules.chatMessage.controller;
 
-import info.mychatbackend.chatMessage.model.ChatMessage;
-import info.mychatbackend.chatMessage.service.ChatMessageOperation;
+import info.mychatbackend.modules.chatMessage.model.ChatMessage;
+import info.mychatbackend.modules.chatMessage.service.ChatMessageOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;

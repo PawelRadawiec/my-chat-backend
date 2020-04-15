@@ -1,7 +1,7 @@
-package info.mychatbackend.chatContent.model;
+package info.mychatbackend.modules.chatContent.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import info.mychatbackend.chatMessage.model.ChatMessage;
+import info.mychatbackend.modules.chatMessage.model.ChatMessage;
 import info.mychatbackend.model.SystemUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

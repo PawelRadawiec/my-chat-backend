@@ -1,7 +1,7 @@
-package info.mychatbackend.chatMessage.service;
+package info.mychatbackend.modules.chatMessage.service;
 
-import info.mychatbackend.chatMessage.model.ChatMessage;
-import info.mychatbackend.chatMessage.repository.ChatMessageRepository;
+import info.mychatbackend.modules.chatMessage.model.ChatMessage;
+import info.mychatbackend.modules.chatMessage.repository.ChatMessageRepository;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

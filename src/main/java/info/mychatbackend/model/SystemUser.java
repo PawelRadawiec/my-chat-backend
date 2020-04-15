@@ -1,7 +1,7 @@
 package info.mychatbackend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import info.mychatbackend.chatContent.model.ChatContent;
+import info.mychatbackend.modules.chatContent.model.ChatContent;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
