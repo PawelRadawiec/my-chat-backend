@@ -1,6 +1,6 @@
 package info.mychatbackend.controller;
 
-import info.mychatbackend.model.SystemUser;
+import info.mychatbackend.modules.chatSystemUser.model.ChatSystemUser;
 import info.mychatbackend.service.MySystemUser;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -22,7 +22,7 @@ public class SystemUserController {
 
     @MessageMapping("/send/user")
     @SendTo("/app")
-    public SystemUser sendMessage(SystemUser systemUser,
+    public ChatSystemUser sendMessage(ChatSystemUser systemUser,
                                   SimpMessageHeaderAccessor headerAccessor) {
         return service.addUser(systemUser, headerAccessor);
     }

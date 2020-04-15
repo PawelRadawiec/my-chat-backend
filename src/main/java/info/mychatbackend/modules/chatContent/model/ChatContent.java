@@ -2,7 +2,7 @@ package info.mychatbackend.modules.chatContent.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import info.mychatbackend.modules.chatMessage.model.ChatMessage;
-import info.mychatbackend.model.SystemUser;
+import info.mychatbackend.modules.chatSystemUser.model.ChatSystemUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,7 +26,7 @@ public class ChatContent implements Serializable {
     @OneToOne()
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @JsonManagedReference
-    private SystemUser owner;
+    private ChatSystemUser owner;
 
     @OneToMany(
             mappedBy = "content"

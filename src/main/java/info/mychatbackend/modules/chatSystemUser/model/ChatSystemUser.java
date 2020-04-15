@@ -1,4 +1,4 @@
-package info.mychatbackend.model;
+package info.mychatbackend.modules.chatSystemUser.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import info.mychatbackend.modules.chatContent.model.ChatContent;
@@ -14,7 +14,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Entity
 @Table(name = "chat_system_user")
-public class SystemUser implements Serializable {
+public class ChatSystemUser implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

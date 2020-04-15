@@ -1,7 +1,7 @@
 package info.mychatbackend.modules.chatContent.repository;
 
 import info.mychatbackend.modules.chatContent.model.ChatContent;
-import info.mychatbackend.model.SystemUser;
+import info.mychatbackend.modules.chatSystemUser.model.ChatSystemUser;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,7 +40,7 @@ public class ChatRepository {
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<ChatContent> query = builder.createQuery(ChatContent.class);
         Root<ChatContent> chatContentRoot = query.from(ChatContent.class);
-        Join<ChatContent, SystemUser> systemUserChatContentJoin = chatContentRoot.join("owner");
+        Join<ChatContent, ChatSystemUser> systemUserChatContentJoin = chatContentRoot.join("owner");
         query.where(
                 builder.equal(systemUserChatContentJoin.get("username"), username)
         );

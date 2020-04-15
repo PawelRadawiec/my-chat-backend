@@ -1,10 +1,10 @@
 package info.mychatbackend.service;
 
-import info.mychatbackend.model.SystemUser;
+import info.mychatbackend.modules.chatSystemUser.model.ChatSystemUser;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 
 public interface MySystemUser {
 
-    SystemUser addUser(SystemUser user, SimpMessageHeaderAccessor accessor);
+    ChatSystemUser addUser(ChatSystemUser user, SimpMessageHeaderAccessor accessor);
 
 }
