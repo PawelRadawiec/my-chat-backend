@@ -15,6 +15,10 @@ public class ChatSystemUserRepository {
 
     private EntityManager em;
 
+    public ChatSystemUserRepository(EntityManager em) {
+        this.em = em;
+    }
+
     public ChatSystemUser save(ChatSystemUser systemUser) {
         em.persist(systemUser);
         return systemUser;
