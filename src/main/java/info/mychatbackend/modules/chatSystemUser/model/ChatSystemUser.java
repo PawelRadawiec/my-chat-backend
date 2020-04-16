@@ -22,8 +22,17 @@ public class ChatSystemUser implements Serializable {
 
     private String username;
 
+    private String firstName;
+
+    private String lastName;
+
+    private String email;
+
+    private String password;
+
     @OneToOne(mappedBy = "owner")
     @JsonBackReference
     private ChatContent content;
+
 
 }
