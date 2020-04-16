@@ -4,11 +4,13 @@ import info.mychatbackend.modules.chatSystemUser.model.ChatSystemUser;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ChatSystemUserRepository {
@@ -22,6 +24,13 @@ public class ChatSystemUserRepository {
     public ChatSystemUser save(ChatSystemUser systemUser) {
         em.persist(systemUser);
         return systemUser;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Optional<ChatSystemUser> getByUsername(String username) {
+        Query query = em.createNamedQuery("chatSystemUser.getByUsername");
+        query.setParameter(1, username);
+        return (Optional<ChatSystemUser>) query.setMaxResults(1).getSingleResult();
     }
 
     public List<ChatSystemUser> getUserList() {

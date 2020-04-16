@@ -13,6 +13,10 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @Entity
+@NamedQuery(
+        name = "chatSystemUser.getByUsername",
+        query = "select csu from ChatSystemUser csu where csu.username = ?1"
+)
 @Table(name = "chat_system_user")
 public class ChatSystemUser implements Serializable {
 

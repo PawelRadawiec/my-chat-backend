@@ -21,6 +21,11 @@ public class ChatSystemUserService implements ChatSystemUserOperations {
     }
 
     @Override
+    public ChatSystemUser getByUsername(String username) {
+        return repository.getByUsername(username).orElse(new ChatSystemUser());
+    }
+
+    @Override
     public List<ChatSystemUser> getUserList() {
         return repository.getUserList();
     }
