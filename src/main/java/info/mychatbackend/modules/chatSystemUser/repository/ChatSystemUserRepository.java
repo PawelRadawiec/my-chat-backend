@@ -30,7 +30,8 @@ public class ChatSystemUserRepository {
     public Optional<ChatSystemUser> getByUsername(String username) {
         Query query = em.createNamedQuery("chatSystemUser.getByUsername");
         query.setParameter(1, username);
-        return (Optional<ChatSystemUser>) query.setMaxResults(1).getSingleResult();
+        List<ChatSystemUser> users = query.getResultList();
+        return !users.isEmpty() ? Optional.of(users.get(0)) : Optional.empty();
     }
 
     public List<ChatSystemUser> getUserList() {
