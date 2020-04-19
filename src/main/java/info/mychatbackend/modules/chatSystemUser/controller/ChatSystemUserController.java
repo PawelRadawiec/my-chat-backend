@@ -1,12 +1,10 @@
 package info.mychatbackend.modules.chatSystemUser.controller;
 
+import info.mychatbackend.modules.chatSystemUser.model.ChatSystemUser;
 import info.mychatbackend.modules.chatSystemUser.service.ChatSystemUserOperations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin("*")
@@ -22,6 +20,11 @@ public class ChatSystemUserController {
     @GetMapping(value = "/list")
     public ResponseEntity getUserList() {
         return new ResponseEntity<>(operations.getUserList(), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/registration")
+    public ResponseEntity registration(@RequestBody ChatSystemUser systemUser) {
+        return new ResponseEntity<>(operations.save(systemUser), HttpStatus.OK);
     }
 
 
