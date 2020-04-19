@@ -89,6 +89,7 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS, "/**")
                 .and()
                 .ignoring()
+                .antMatchers("/ws/**")
                 .antMatchers(
                         HttpMethod.GET,
                         "/"
