@@ -1,9 +1,11 @@
 package info.mychatbackend.modules.chatSystemUser.service;
 
+import info.mychatbackend.modules.chatContent.service.ChatContentService;
 import info.mychatbackend.modules.chatSystemUser.helper.SystemUserHelper;
 import info.mychatbackend.modules.chatSystemUser.model.ChatSystemUser;
 import info.mychatbackend.modules.chatSystemUser.repository.ChatSystemUserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -12,19 +14,24 @@ public class ChatSystemUserService implements ChatSystemUserOperations {
 
     private ChatSystemUserRepository repository;
     private SystemUserHelper systemUserHelper;
+    private ChatContentService contentService;
 
-    public ChatSystemUserService(ChatSystemUserRepository repository, SystemUserHelper systemUserHelper) {
+    public ChatSystemUserService(
+            ChatSystemUserRepository repository,
+            SystemUserHelper systemUserHelper,
+            ChatContentService contentService
+    ) {
         this.repository = repository;
         this.systemUserHelper = systemUserHelper;
+        this.contentService = contentService;
     }
 
     @Override
+    @Transactional
     public ChatSystemUser save(ChatSystemUser systemUser) {
-        // create password hash
         systemUserHelper.setPasswordHash(systemUser);
+        systemUser.setContent(contentService.create(systemUser).orElse(null));
         // send activation mail
-
-        // create chat content
         return repository.save(systemUser);
     }
 
