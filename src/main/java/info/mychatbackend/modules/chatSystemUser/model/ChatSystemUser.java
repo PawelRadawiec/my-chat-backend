@@ -2,6 +2,7 @@ package info.mychatbackend.modules.chatSystemUser.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import info.mychatbackend.modules.chatContent.model.ChatContent;
+import info.mychatbackend.modules.chatSystemUser.validator.UsernameUnique;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +25,7 @@ public class ChatSystemUser implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @UsernameUnique
     private String username;
 
     private String firstName;

@@ -31,7 +31,7 @@ public class ChatSystemUserService implements ChatSystemUserOperations {
     public ChatSystemUser save(ChatSystemUser systemUser) {
         systemUserHelper.setPasswordHash(systemUser);
         systemUser.setContent(contentService.create(systemUser).orElse(null));
-        // send activation mail
+        // todo send activation mail
         return repository.save(systemUser);
     }
 

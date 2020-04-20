@@ -6,9 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @CrossOrigin("*")
-@RequestMapping("/chat-system-user")
+@RequestMapping("/chat-user")
 public class ChatSystemUserController {
 
     private ChatSystemUserOperations operations;
@@ -23,7 +25,7 @@ public class ChatSystemUserController {
     }
 
     @PostMapping(value = "/registration")
-    public ResponseEntity registration(@RequestBody ChatSystemUser systemUser) {
+    public ResponseEntity registration(@Valid @RequestBody ChatSystemUser systemUser) {
         return new ResponseEntity<>(operations.save(systemUser), HttpStatus.OK);
     }
 
