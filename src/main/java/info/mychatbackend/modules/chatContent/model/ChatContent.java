@@ -15,13 +15,17 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
+@NamedQuery(name = "chatContent.getByUserName",
+        query = "select cc from ChatContent cc" +
+                "  join cc.owner ssu on ssu.username = ?1" +
+                "  join cc.correspondent cor " +
+                "  join cc.messages cm")
 @Table(name = "chat_content")
 public class ChatContent implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
 
     @OneToOne()
     @JoinColumn(name = "user_id", referencedColumnName = "id")
@@ -38,5 +42,6 @@ public class ChatContent implements Serializable {
     )
     @JsonManagedReference
     private List<ChatMessage> messages;
+
 
 }
