@@ -1,5 +1,9 @@
 package info.mychatbackend.modules.chat.systemUser.service;
 
+import info.mychatbackend.modules.chat.contact.model.ChatContentContacts;
+import info.mychatbackend.modules.chat.contact.repository.ChatContactContactsRepository;
+import info.mychatbackend.modules.chat.contact.service.ContentContactsOperation;
+import info.mychatbackend.modules.chat.contact.service.ContentContactsService;
 import info.mychatbackend.modules.chat.content.model.ChatContent;
 import info.mychatbackend.modules.chat.content.service.ChatContentService;
 import info.mychatbackend.modules.chat.systemUser.helper.SystemUserHelper;
@@ -16,24 +20,27 @@ public class ChatSystemUserService implements ChatSystemUserOperations {
     private ChatSystemUserRepository repository;
     private SystemUserHelper systemUserHelper;
     private ChatContentService contentService;
+    private ContentContactsService contactsService;
 
     public ChatSystemUserService(
             ChatSystemUserRepository repository,
             SystemUserHelper systemUserHelper,
-            ChatContentService contentService
-    ) {
+            ChatContentService contentService,
+            ContentContactsService contactsService) {
         this.repository = repository;
         this.systemUserHelper = systemUserHelper;
         this.contentService = contentService;
+        this.contactsService = contactsService;
     }
 
     @Override
     @Transactional
     public ChatSystemUser save(ChatSystemUser systemUser) {
+        ChatContent content = contentService.create(systemUser).orElse(null);
         systemUserHelper.setPasswordHash(systemUser);
         repository.save(systemUser);
-        ChatContent content = contentService.create(systemUser).orElse(null);
         systemUser.setContent(content);
+        contactsService.create(systemUser);
         // todo send activation mail
         return systemUser;
     }

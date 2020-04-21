@@ -1,5 +1,6 @@
-package info.mychatbackend.modules.chat.content.model;
+package info.mychatbackend.modules.chat.contact.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import info.mychatbackend.modules.chat.systemUser.model.ChatSystemUser;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,12 +13,19 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@NamedQuery(name = "chatContentContacts.getByUsername",
+        query = "select ccc from ChatContentContacts ccc" +
+                "  join ccc.owner o on o.username = ?1" +
+                "  join ccc.contacts c")
 public class ChatContentContacts {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "owner_id", referencedColumnName = "id")
+    @JsonManagedReference(value = "content-contacts")
     private ChatSystemUser owner;
 
     @ManyToMany(

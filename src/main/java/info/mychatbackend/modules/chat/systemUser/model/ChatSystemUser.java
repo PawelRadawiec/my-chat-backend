@@ -1,6 +1,7 @@
 package info.mychatbackend.modules.chat.systemUser.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import info.mychatbackend.modules.chat.contact.model.ChatContentContacts;
 import info.mychatbackend.modules.chat.content.model.ChatContent;
 import info.mychatbackend.modules.chat.systemUser.validator.UsernameUnique;
 import lombok.Getter;
@@ -43,6 +44,10 @@ public class ChatSystemUser implements Serializable {
     @OneToOne(mappedBy = "owner")
     @JsonBackReference
     private ChatContent content;
+
+    @OneToOne(mappedBy = "owner")
+    @JsonBackReference(value = "content-contacts")
+    private ChatContentContacts chatContentContacts;
 
 
 }

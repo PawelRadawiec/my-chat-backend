@@ -1,4 +1,4 @@
-package info.mychatbackend.modules.chat.content.model;
+package info.mychatbackend.modules.chat.contact.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
