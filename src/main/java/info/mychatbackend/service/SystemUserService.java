@@ -1,6 +1,6 @@
 package info.mychatbackend.service;
 
-import info.mychatbackend.modules.chatSystemUser.model.ChatSystemUser;
+import info.mychatbackend.modules.chat.systemUser.model.ChatSystemUser;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;

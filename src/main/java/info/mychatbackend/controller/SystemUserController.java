@@ -1,6 +1,6 @@
 package info.mychatbackend.controller;
 
-import info.mychatbackend.modules.chatSystemUser.model.ChatSystemUser;
+import info.mychatbackend.modules.chat.systemUser.model.ChatSystemUser;
 import info.mychatbackend.service.MySystemUser;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;

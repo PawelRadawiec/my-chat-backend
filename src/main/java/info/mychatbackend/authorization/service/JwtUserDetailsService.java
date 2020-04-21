@@ -1,8 +1,8 @@
 package info.mychatbackend.authorization.service;
 
 import info.mychatbackend.authorization.model.JwtUserDetails;
-import info.mychatbackend.modules.chatSystemUser.model.ChatSystemUser;
-import info.mychatbackend.modules.chatSystemUser.repository.ChatSystemUserRepository;
+import info.mychatbackend.modules.chat.systemUser.model.ChatSystemUser;
+import info.mychatbackend.modules.chat.systemUser.repository.ChatSystemUserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
