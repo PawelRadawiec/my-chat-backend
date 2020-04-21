@@ -65,6 +65,8 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(jwtUnAuthorizedResponseAuthenticationEntryPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
+                .antMatchers("/content/{username}")
+                .access("@chatContentGuard.checkUsername(#username)")
                 .anyRequest().authenticated();
 
         httpSecurity
@@ -106,6 +108,7 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .ignoring()
                 .antMatchers("/h2-console/**/**");//Should not be in Production!
     }
+    
 
 
 }

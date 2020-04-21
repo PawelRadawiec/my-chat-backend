@@ -24,7 +24,7 @@ public class UsernameValidator implements ConstraintValidator<UsernameUnique, St
         if (StringUtils.isEmpty(username)) {
             return true;
         }
-        return userService.getByUsername(username) == null;
+        return userService.getByUsername(username) != null;
     }
 
 

@@ -1,5 +1,6 @@
 package info.mychatbackend.modules.chatSystemUser.service;
 
+import info.mychatbackend.modules.chatContent.model.ChatContent;
 import info.mychatbackend.modules.chatContent.service.ChatContentService;
 import info.mychatbackend.modules.chatSystemUser.helper.SystemUserHelper;
 import info.mychatbackend.modules.chatSystemUser.model.ChatSystemUser;
@@ -30,9 +31,11 @@ public class ChatSystemUserService implements ChatSystemUserOperations {
     @Transactional
     public ChatSystemUser save(ChatSystemUser systemUser) {
         systemUserHelper.setPasswordHash(systemUser);
-        systemUser.setContent(contentService.create(systemUser).orElse(null));
+        repository.save(systemUser);
+        ChatContent content = contentService.create(systemUser).orElse(null);
+        systemUser.setContent(content);
         // todo send activation mail
-        return repository.save(systemUser);
+        return systemUser;
     }
 
     @Override
