@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 @Getter
@@ -25,6 +26,7 @@ public class ChatSystemUser implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotEmpty
     @UsernameUnique
     private String username;
 
@@ -32,8 +34,10 @@ public class ChatSystemUser implements Serializable {
 
     private String lastName;
 
+    @NotEmpty
     private String email;
 
+    @NotEmpty
     private String password;
 
     @OneToOne(mappedBy = "owner")
