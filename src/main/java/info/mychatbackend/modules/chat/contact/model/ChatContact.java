@@ -1,10 +1,12 @@
 package info.mychatbackend.modules.chat.contact.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -12,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Table(name = "chat_contacts")
-public class ChatContact {
+public class ChatContact implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,6 +31,7 @@ public class ChatContact {
             },
             mappedBy = "contacts"
     )
+    @JsonBackReference
     private List<ChatContentContacts> contentContacts;
 
 

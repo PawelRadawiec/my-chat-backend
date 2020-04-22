@@ -42,7 +42,7 @@ public class ChatSystemUser implements Serializable {
     private String password;
 
     @OneToOne(mappedBy = "owner")
-    @JsonBackReference
+    @JsonBackReference(value = "content")
     private ChatContent content;
 
     @OneToOne(mappedBy = "owner")

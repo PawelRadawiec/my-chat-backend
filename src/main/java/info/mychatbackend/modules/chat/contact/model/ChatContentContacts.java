@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -17,7 +18,7 @@ import java.util.List;
         query = "select ccc from ChatContentContacts ccc" +
                 "  join ccc.owner o on o.id = ccc.owner.id and o.username = ?1" +
                 "  left join ccc.contacts c")
-public class ChatContentContacts {
+public class ChatContentContacts implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -39,6 +40,7 @@ public class ChatContentContacts {
             joinColumns = {@JoinColumn(name = "chat_content_contacts_id")},
             inverseJoinColumns = {@JoinColumn(name = "chat_contact_id")}
     )
+    @JsonManagedReference
     private List<ChatContact> contacts;
 
 
