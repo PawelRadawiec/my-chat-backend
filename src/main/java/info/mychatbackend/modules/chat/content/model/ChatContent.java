@@ -17,9 +17,8 @@ import java.util.List;
 @Entity
 @NamedQuery(name = "chatContent.getByUserName",
         query = "select cc from ChatContent cc" +
-                "  join cc.owner ssu on ssu.username = ?1" +
-                "  join cc.correspondent cor " +
-                "  join cc.messages cm")
+                "  join cc.owner ssu on ssu.id = cc.owner.id and ssu.username = ?1" +
+                "  left join cc.messages cm")
 @Table(name = "chat_content")
 public class ChatContent implements Serializable {
 

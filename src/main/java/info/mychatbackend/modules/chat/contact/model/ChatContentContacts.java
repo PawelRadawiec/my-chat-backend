@@ -15,8 +15,8 @@ import java.util.List;
 @NoArgsConstructor
 @NamedQuery(name = "chatContentContacts.getByUsername",
         query = "select ccc from ChatContentContacts ccc" +
-                "  join ccc.owner o on o.username = ?1" +
-                "  join ccc.contacts c")
+                "  join ccc.owner o on o.id = ccc.owner.id and o.username = ?1" +
+                "  left join ccc.contacts c")
 public class ChatContentContacts {
 
     @Id

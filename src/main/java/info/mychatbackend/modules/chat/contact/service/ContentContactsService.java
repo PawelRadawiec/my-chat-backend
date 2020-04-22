@@ -5,6 +5,8 @@ import info.mychatbackend.modules.chat.contact.repository.ChatContactContactsRep
 import info.mychatbackend.modules.chat.systemUser.model.ChatSystemUser;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ContentContactsService implements ContentContactsOperation {
 
@@ -14,6 +16,11 @@ public class ContentContactsService implements ContentContactsOperation {
         this.contactsRepository = contactsRepository;
     }
 
+
+    @Override
+    public Optional<ChatContentContacts> getByUsername(String username) {
+        return contactsRepository.getByUsername(username);
+    }
 
     @Override
     public ChatContentContacts create(ChatContentContacts user) {
