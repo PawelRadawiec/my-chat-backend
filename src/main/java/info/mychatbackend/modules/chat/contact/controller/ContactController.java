@@ -16,9 +16,9 @@ public class ContactController {
         this.contactsService = contactsService;
     }
 
-    @GetMapping(value = "/{username}")
-    private ResponseEntity getByUsername(@PathVariable() String username) {
-        return new ResponseEntity<>(contactsService.getByUsername(username), HttpStatus.OK);
+    @GetMapping()
+    private ResponseEntity getByUsername() {
+        return new ResponseEntity<>(contactsService.getChatContact(), HttpStatus.OK);
     }
 
 

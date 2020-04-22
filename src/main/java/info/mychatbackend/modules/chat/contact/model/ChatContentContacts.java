@@ -40,7 +40,7 @@ public class ChatContentContacts implements Serializable {
             joinColumns = {@JoinColumn(name = "chat_content_contacts_id")},
             inverseJoinColumns = {@JoinColumn(name = "chat_contact_id")}
     )
-    @JsonManagedReference
+    //@JsonManagedReference
     private List<ChatContact> contacts;
 
 

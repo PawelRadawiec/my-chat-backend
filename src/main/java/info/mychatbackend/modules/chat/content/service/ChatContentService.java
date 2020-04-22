@@ -4,6 +4,8 @@ package info.mychatbackend.modules.chat.content.service;
 import info.mychatbackend.modules.chat.content.model.ChatContent;
 import info.mychatbackend.modules.chat.content.repository.ChatRepository;
 import info.mychatbackend.modules.chat.systemUser.model.ChatSystemUser;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -41,7 +43,8 @@ public class ChatContentService implements ChatContentOperations {
 
     @Override
     public Optional<ChatContent> findByUsername(String username) {
-        return repository.findByUsername(username);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return repository.findByUsername(authentication.getName(), username);
     }
 
 

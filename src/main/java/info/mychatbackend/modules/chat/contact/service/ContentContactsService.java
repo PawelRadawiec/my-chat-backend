@@ -3,9 +3,10 @@ package info.mychatbackend.modules.chat.contact.service;
 import info.mychatbackend.modules.chat.contact.model.ChatContentContacts;
 import info.mychatbackend.modules.chat.contact.repository.ChatContactContactsRepository;
 import info.mychatbackend.modules.chat.systemUser.model.ChatSystemUser;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 public class ContentContactsService implements ContentContactsOperation {
@@ -18,8 +19,9 @@ public class ContentContactsService implements ContentContactsOperation {
 
 
     @Override
-    public Optional<ChatContentContacts> getByUsername(String username) {
-        return contactsRepository.getByUsername(username);
+    public ChatContentContacts getChatContact() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return contactsRepository.getByUsername(authentication.getName()).orElse(null);
     }
 
     @Override

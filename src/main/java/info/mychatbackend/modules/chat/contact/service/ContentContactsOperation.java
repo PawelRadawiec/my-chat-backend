@@ -6,7 +6,7 @@ import info.mychatbackend.modules.chat.systemUser.model.ChatSystemUser;
 
 public interface ContentContactsOperation {
 
-    ChatContentContacts getByUsername(String username);
+    ChatContentContacts getChatContact();
 
     ChatContentContacts create(ChatContentContacts user);
 

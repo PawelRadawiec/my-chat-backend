@@ -36,9 +36,10 @@ public class ChatRepository {
         return typedQuery.getResultList().stream().findFirst();
     }
 
-    public Optional<ChatContent> findByUsername(String username) {
+    public Optional<ChatContent> findByUsername(String ownerName, String corespondentName) {
         Query query = em.createNamedQuery("chatContent.getByUserName");
-        query.setParameter(1, username);
+        query.setParameter(1, ownerName);
+        query.setParameter(2, corespondentName);
         return query.getResultList().stream().findFirst();
     }
 

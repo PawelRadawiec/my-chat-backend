@@ -1,6 +1,5 @@
 package info.mychatbackend.modules.chat.content.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import info.mychatbackend.modules.chat.message.model.ChatMessage;
 import info.mychatbackend.modules.chat.systemUser.model.ChatSystemUser;
 import lombok.Getter;
@@ -18,6 +17,7 @@ import java.util.List;
 @NamedQuery(name = "chatContent.getByUserName",
         query = "select cc from ChatContent cc" +
                 "  join cc.owner ssu on ssu.id = cc.owner.id and ssu.username = ?1" +
+                "  join cc.correspondent co on co.id = cc.correspondent.id and co.username = ?2" +
                 "  left join cc.messages cm")
 @Table(name = "chat_content")
 public class ChatContent implements Serializable {
@@ -28,18 +28,15 @@ public class ChatContent implements Serializable {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @JsonManagedReference(value = "content")
     private ChatSystemUser owner;
 
     @OneToOne()
     @JoinColumn(name = "correspondent_id", referencedColumnName = "id")
-    @JsonManagedReference
     private ChatSystemUser correspondent;
 
     @OneToMany(
             mappedBy = "content"
     )
-    @JsonManagedReference
     private List<ChatMessage> messages;
 
 
