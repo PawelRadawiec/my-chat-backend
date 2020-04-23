@@ -42,5 +42,12 @@ public class ChatSystemUserRepository {
         return typedQuery.getResultList();
     }
 
+    @SuppressWarnings("unchecked")
+    public List<ChatSystemUser> search(String username) {
+        Query query = em.createNamedQuery("chatSystemUser.search");
+        query.setParameter(1, "%" + username + "%");
+        return (List<ChatSystemUser>)query.getResultList();
+    }
+
 
 }

@@ -20,6 +20,10 @@ import java.io.Serializable;
         name = "chatSystemUser.getByUsername",
         query = "select csu from ChatSystemUser csu where csu.username = ?1"
 )
+@NamedQuery(
+        name = "chatSystemUser.search",
+        query = "select csu from ChatSystemUser csu where csu.username like ?1"
+)
 @Table(name = "chat_system_user")
 public class ChatSystemUser implements Serializable {
 

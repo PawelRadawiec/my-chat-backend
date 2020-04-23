@@ -29,5 +29,10 @@ public class ChatSystemUserController {
         return new ResponseEntity<>(operations.save(systemUser), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/search/{username}")
+    public ResponseEntity search(@PathVariable String username) {
+        return new ResponseEntity<>(operations.search(username), HttpStatus.OK);
+    }
+
 
 }

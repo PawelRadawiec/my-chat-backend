@@ -1,8 +1,5 @@
 package info.mychatbackend.modules.chat.systemUser.service;
 
-import info.mychatbackend.modules.chat.contact.model.ChatContentContacts;
-import info.mychatbackend.modules.chat.contact.repository.ChatContactContactsRepository;
-import info.mychatbackend.modules.chat.contact.service.ContentContactsOperation;
 import info.mychatbackend.modules.chat.contact.service.ContentContactsService;
 import info.mychatbackend.modules.chat.content.model.ChatContent;
 import info.mychatbackend.modules.chat.content.service.ChatContentService;
@@ -53,6 +50,11 @@ public class ChatSystemUserService implements ChatSystemUserOperations {
     @Override
     public List<ChatSystemUser> getUserList() {
         return repository.getUserList();
+    }
+
+    @Override
+    public List<ChatSystemUser> search(String username) {
+        return repository.search(username);
     }
 
 
