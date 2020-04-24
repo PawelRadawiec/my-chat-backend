@@ -16,27 +16,22 @@ public class ChatSystemUserService implements ChatSystemUserOperations {
 
     private ChatSystemUserRepository repository;
     private SystemUserHelper systemUserHelper;
-    private ChatContentService contentService;
     private ContentContactsService contactsService;
 
     public ChatSystemUserService(
             ChatSystemUserRepository repository,
             SystemUserHelper systemUserHelper,
-            ChatContentService contentService,
             ContentContactsService contactsService) {
         this.repository = repository;
         this.systemUserHelper = systemUserHelper;
-        this.contentService = contentService;
         this.contactsService = contactsService;
     }
 
     @Override
     @Transactional
     public ChatSystemUser save(ChatSystemUser systemUser) {
-        ChatContent content = contentService.create(systemUser).orElse(null);
         systemUserHelper.setPasswordHash(systemUser);
         repository.save(systemUser);
-        systemUser.setContent(content);
         contactsService.create(systemUser);
         // todo send activation mail
         return systemUser;

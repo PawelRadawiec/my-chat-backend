@@ -1,5 +1,6 @@
 package info.mychatbackend.modules.chat.contact.repository;
 
+import info.mychatbackend.modules.chat.contact.model.ChatContact;
 import info.mychatbackend.modules.chat.contact.model.ChatContentContacts;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +25,12 @@ public class ChatContactContactsRepository {
 
     public Optional<ChatContentContacts> getByUsername(String username) {
         Query query = em.createNamedQuery("chatContentContacts.getByUsername");
+        query.setParameter(1, username);
+        return query.getResultList().stream().findFirst();
+    }
+
+    public Optional<ChatContact> getChatContactByUsername(String username) {
+        Query query = em.createQuery("chatContact.getByUsername");
         query.setParameter(1, username);
         return query.getResultList().stream().findFirst();
     }

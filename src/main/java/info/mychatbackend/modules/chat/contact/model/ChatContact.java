@@ -13,6 +13,11 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@NamedQuery(
+        name = "chatContact.getByUsername",
+        query = "select cc from ChatContact cc" +
+                " where cc.username = ?1"
+)
 @Table(name = "chat_contacts")
 public class ChatContact implements Serializable {
 

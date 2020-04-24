@@ -11,6 +11,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -45,9 +46,9 @@ public class ChatSystemUser implements Serializable {
     @NotEmpty
     private String password;
 
-    @OneToOne(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner")
     @JsonBackReference(value = "content")
-    private ChatContent content;
+    private List<ChatContent> content;
 
     @OneToOne(mappedBy = "owner")
     @JsonBackReference(value = "content-contacts")

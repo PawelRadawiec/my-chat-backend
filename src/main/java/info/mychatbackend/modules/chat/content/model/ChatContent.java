@@ -14,11 +14,13 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
-@NamedQuery(name = "chatContent.getByUserName",
+@NamedQuery(
+        name = "chatContent.getByUserName",
         query = "select cc from ChatContent cc" +
                 "  join cc.owner ssu on ssu.id = cc.owner.id and ssu.username = ?1" +
                 "  join cc.correspondent co on co.id = cc.correspondent.id and co.username = ?2" +
-                "  left join cc.messages cm")
+                "  left join cc.messages cm"
+)
 @Table(name = "chat_content")
 public class ChatContent implements Serializable {
 
@@ -26,7 +28,7 @@ public class ChatContent implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private ChatSystemUser owner;
 
