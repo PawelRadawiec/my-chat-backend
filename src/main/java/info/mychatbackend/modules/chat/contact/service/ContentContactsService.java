@@ -50,7 +50,7 @@ public class ContentContactsService implements ContentContactsOperation {
     @Override
     @Transactional
     public List<ChatContact> addContact(ChatContact contact) {
-        // update contacts
+        // 1.update contacts
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String ownerUsername = authentication.getName();
         String correspondentName = contact.getUsername();
@@ -62,7 +62,7 @@ public class ContentContactsService implements ContentContactsOperation {
         ChatContact ownerContact = contactsRepository.getChatContactByUsername(ownerUsername).orElseGet(ChatContact::new);
         correspondentContentContacts.getContacts().add(ownerContact);
 
-        // create new owner content
+        // 2.create new owner content
         ChatSystemUser owner = userRepository.getByUsername(ownerUsername).orElseGet(ChatSystemUser::new);
         ChatSystemUser correspondent = userRepository.getByUsername(ownerUsername).orElseGet(ChatSystemUser::new);
 
@@ -70,7 +70,7 @@ public class ContentContactsService implements ContentContactsOperation {
         ownerContent.setOwner(owner);
         ownerContent.setCorrespondent(correspondent);
 
-        // create new correspondent content
+        // 3. create new correspondent content
         ChatContent correspondentContent = new ChatContent();
         correspondentContent.setOwner(correspondent);
         correspondentContent.setCorrespondent(owner);

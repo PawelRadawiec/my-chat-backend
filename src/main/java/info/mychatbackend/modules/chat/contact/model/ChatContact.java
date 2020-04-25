@@ -21,6 +21,10 @@ import java.util.List;
 @Table(name = "chat_contacts")
 public class ChatContact implements Serializable {
 
+    public ChatContact(String username) {
+        this.username = username;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

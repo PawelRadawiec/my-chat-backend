@@ -30,7 +30,7 @@ public class ChatContactContactsRepository {
     }
 
     public Optional<ChatContact> getChatContactByUsername(String username) {
-        Query query = em.createQuery("chatContact.getByUsername");
+        Query query = em.createNamedQuery("chatContact.getByUsername");
         query.setParameter(1, username);
         return query.getResultList().stream().findFirst();
     }
