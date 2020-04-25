@@ -39,10 +39,9 @@ public class ChatContact implements Serializable {
     private Boolean active;
 
     @ManyToMany(
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },
+//            cascade = {
+//                    CascadeType.MERGE
+//            },
             mappedBy = "contacts"
     )
     @JsonBackReference

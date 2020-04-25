@@ -56,7 +56,8 @@ public class ContentContactsService implements ContentContactsOperation {
         String correspondentName = contact.getUsername();
 
         ChatContentContacts ownerContentContacts = contactsRepository.getByUsername(ownerUsername).orElseGet(ChatContentContacts::new);
-        ownerContentContacts.getContacts().add(contact);
+        ChatContact correspondentContact = contactsRepository.getChatContactByUsername(correspondentName).orElseGet(ChatContact::new);
+        ownerContentContacts.getContacts().add(correspondentContact);
 
         ChatContentContacts correspondentContentContacts = contactsRepository.getByUsername(correspondentName).orElseGet(ChatContentContacts::new);
         ChatContact ownerContact = contactsRepository.getChatContactByUsername(ownerUsername).orElseGet(ChatContact::new);
