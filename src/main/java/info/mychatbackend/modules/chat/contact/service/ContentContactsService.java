@@ -7,6 +7,7 @@ import info.mychatbackend.modules.chat.content.model.ChatContent;
 import info.mychatbackend.modules.chat.content.service.ChatContentService;
 import info.mychatbackend.modules.chat.systemUser.model.ChatSystemUser;
 import info.mychatbackend.modules.chat.systemUser.repository.ChatSystemUserRepository;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -21,11 +22,13 @@ public class ContentContactsService implements ContentContactsOperation {
     private ChatContactContactsRepository contactsRepository;
     private ChatSystemUserRepository userRepository;
     private ChatContentService contentService;
+    private SimpMessageSendingOperations messagingTemplate;
 
-    public ContentContactsService(ChatContactContactsRepository contactsRepository, ChatSystemUserRepository userRepository, ChatContentService contentService) {
+    public ContentContactsService(ChatContactContactsRepository contactsRepository, ChatSystemUserRepository userRepository, ChatContentService contentService, SimpMessageSendingOperations messagingTemplate) {
         this.contactsRepository = contactsRepository;
         this.userRepository = userRepository;
         this.contentService = contentService;
+        this.messagingTemplate = messagingTemplate;
     }
 
 
@@ -78,6 +81,8 @@ public class ContentContactsService implements ContentContactsOperation {
 
         contentService.create(ownerContent);
         contentService.create(correspondentContent);
+
+        messagingTemplate.convertAndSend("/topic/users", contact);
 
         return ownerContentContacts.getContacts();
     }
