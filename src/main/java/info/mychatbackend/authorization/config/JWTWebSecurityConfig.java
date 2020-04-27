@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -43,6 +44,7 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
+                .authenticationEventPublisher(authenticationEventPublisher())
                 .userDetailsService(jwtInMemoryUserDetailsService)
                 .passwordEncoder(passwordEncoderBean());
     }
@@ -65,8 +67,9 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(jwtUnAuthorizedResponseAuthenticationEntryPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers("/content/{username}")
-                .access("@chatContentGuard.checkUsername(#username)")
+                // todo update guard
+                //.antMatchers("/content/{username}")
+                // .access("@chatContentGuard.checkUsername(#username)")
                 .anyRequest().authenticated();
 
         httpSecurity
@@ -92,6 +95,7 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .ignoring()
                 .antMatchers("/ws/**")
+                .antMatchers("/logout")
                 .antMatchers(
                         HttpMethod.GET,
                         "/"
@@ -108,7 +112,11 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .ignoring()
                 .antMatchers("/h2-console/**/**");//Should not be in Production!
     }
-    
+
+    @Bean
+    public DefaultAuthenticationEventPublisher authenticationEventPublisher() {
+        return new DefaultAuthenticationEventPublisher();
+    }
 
 
 }

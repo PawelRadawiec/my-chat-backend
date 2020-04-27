@@ -1,6 +1,6 @@
 package info.mychatbackend.authorization.model;
 
-import info.mychatbackend.modules.chatSystemUser.model.ChatSystemUser;
+import info.mychatbackend.modules.chat.systemUser.model.ChatSystemUser;
 
 import java.io.Serializable;
 

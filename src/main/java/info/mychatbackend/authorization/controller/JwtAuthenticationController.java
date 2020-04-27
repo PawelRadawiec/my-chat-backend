@@ -4,8 +4,9 @@ import info.mychatbackend.authorization.exception.AuthenticationException;
 import info.mychatbackend.authorization.helper.JwtTokenHelper;
 import info.mychatbackend.authorization.model.JwtTokenRequest;
 import info.mychatbackend.authorization.model.JwtTokenResponse;
-import info.mychatbackend.modules.chatSystemUser.model.ChatSystemUser;
-import info.mychatbackend.modules.chatSystemUser.service.ChatSystemUserService;
+import info.mychatbackend.authorization.service.LogoutService;
+import info.mychatbackend.modules.chat.systemUser.model.ChatSystemUser;
+import info.mychatbackend.modules.chat.systemUser.service.ChatSystemUserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,15 +31,17 @@ public class JwtAuthenticationController {
     private JwtTokenHelper jwtTokenHelper;
     private UserDetailsService userDetailsService;
     private ChatSystemUserService userService;
+    private LogoutService logoutService;
 
     public JwtAuthenticationController(
             AuthenticationManager authenticationManager, JwtTokenHelper jwtTokenHelper,
-            UserDetailsService userDetailsService, ChatSystemUserService userService
-    ) {
+            UserDetailsService userDetailsService, ChatSystemUserService userService,
+            LogoutService logoutService) {
         this.authenticationManager = authenticationManager;
         this.jwtTokenHelper = jwtTokenHelper;
         this.userDetailsService = userDetailsService;
         this.userService = userService;
+        this.logoutService = logoutService;
     }
 
     @RequestMapping(value = "${jwt.get.token.uri}", method = RequestMethod.POST)
@@ -81,6 +84,11 @@ public class JwtAuthenticationController {
         } catch (BadCredentialsException e) {
             throw new AuthenticationException("INVALID_CREDENTIALS", e);
         }
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public ResponseEntity logout() {
+        return new ResponseEntity<>(logoutService.logout(), HttpStatus.OK);
     }
 
 
