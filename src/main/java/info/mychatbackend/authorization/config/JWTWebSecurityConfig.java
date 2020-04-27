@@ -95,6 +95,7 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .ignoring()
                 .antMatchers("/ws/**")
+                .antMatchers("/logout")
                 .antMatchers(
                         HttpMethod.GET,
                         "/"
