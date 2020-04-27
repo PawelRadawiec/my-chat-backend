@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.DefaultAuthenticationEventPublisher;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -43,6 +44,7 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
+                .authenticationEventPublisher(authenticationEventPublisher())
                 .userDetailsService(jwtInMemoryUserDetailsService)
                 .passwordEncoder(passwordEncoderBean());
     }
@@ -108,6 +110,11 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .ignoring()
                 .antMatchers("/h2-console/**/**");//Should not be in Production!
+    }
+
+    @Bean
+    public DefaultAuthenticationEventPublisher authenticationEventPublisher() {
+        return new DefaultAuthenticationEventPublisher();
     }
 
 
