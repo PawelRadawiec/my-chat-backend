@@ -68,7 +68,7 @@ public class ContentContactsService implements ContentContactsOperation {
 
         // 2.create new owner content
         ChatSystemUser owner = userRepository.getByUsername(ownerUsername).orElseGet(ChatSystemUser::new);
-        ChatSystemUser correspondent = userRepository.getByUsername(ownerUsername).orElseGet(ChatSystemUser::new);
+        ChatSystemUser correspondent = userRepository.getByUsername(correspondentName).orElseGet(ChatSystemUser::new);
 
         ChatContent ownerContent = new ChatContent();
         ownerContent.setOwner(owner);

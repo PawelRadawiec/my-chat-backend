@@ -1,5 +1,8 @@
 package info.mychatbackend.modules.chat.message.service;
 
+import info.mychatbackend.modules.chat.content.model.ChatContent;
+import info.mychatbackend.modules.chat.content.repository.ChatRepository;
+import info.mychatbackend.modules.chat.message.helper.ChatMessageHelper;
 import info.mychatbackend.modules.chat.message.model.ChatMessage;
 import info.mychatbackend.modules.chat.message.repository.ChatMessageRepository;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -11,20 +14,24 @@ import org.springframework.util.StringUtils;
 @Service
 public class ChatMessageService implements ChatMessageOperation {
 
-    private ChatMessageRepository repository;
     private RabbitTemplate template;
+    private ChatRepository contentRepository;
+    private ChatMessageRepository messageRepository;
 
     public ChatMessageService(
-            ChatMessageRepository repository,
-            RabbitTemplate template
+            RabbitTemplate template,
+            ChatRepository contentRepository,
+            ChatMessageRepository messageRepository
     ) {
-        this.repository = repository;
         this.template = template;
+        this.contentRepository = contentRepository;
+        this.messageRepository = messageRepository;
     }
 
     @Override
     @Transactional
     public ChatMessage create(ChatMessage message) {
+        ChatContent correspondentContent = contentRepository.findByUsername(message.getTo(), message.getFrom()).orElse(new ChatContent());
         String topicUrl = "/topic/";
         String sendTo = message.getTo();
         if (!StringUtils.isEmpty(sendTo)) {
@@ -33,7 +40,8 @@ public class ChatMessageService implements ChatMessageOperation {
         } else {
             this.template.convertAndSend("/topic/message", message);
         }
-        repository.create(message);
+        messageRepository.create(ChatMessageHelper.messageOf(message, correspondentContent));
+        messageRepository.create(message);
         return message;
     }
 
