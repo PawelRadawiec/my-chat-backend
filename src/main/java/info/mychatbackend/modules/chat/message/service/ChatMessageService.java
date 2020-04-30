@@ -45,8 +45,8 @@ public class ChatMessageService implements ChatMessageOperation {
         } catch (JsonProcessingException e) {
             LOGGER.info("JsonProcessingException", e);
         }
-        this.template.convertAndSend(exchange,  "message." + message.getTo(), messageJson);
-        this.template.convertAndSend(exchange, "message." + message.getFrom(), messageJson);
+        this.template.convertAndSend(exchange, "message." + message.getTo() + "." + message.getFrom(), messageJson);
+        this.template.convertAndSend(exchange, "message." + message.getFrom() + "." + message.getTo(), messageJson);
 
         messageRepository.create(ChatMessageHelper.messageOf(message, correspondentContent));
         messageRepository.create(message);
