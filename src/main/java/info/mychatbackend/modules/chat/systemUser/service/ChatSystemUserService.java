@@ -8,9 +8,12 @@ import info.mychatbackend.modules.chat.systemUser.model.ChatSystemUser;
 import info.mychatbackend.modules.chat.systemUser.model.Registration;
 import info.mychatbackend.modules.chat.systemUser.model.RegistrationStep;
 import info.mychatbackend.modules.chat.systemUser.repository.ChatSystemUserRepository;
+import info.mychatbackend.modules.email.service.ChatEmailService;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 @Service
@@ -20,12 +23,14 @@ public class ChatSystemUserService implements ChatSystemUserOperations {
     private SystemUserHelper systemUserHelper;
     private ContentContactsService contactsService;
     private ChatContactRepository contactRepository;
+    private ChatEmailService emailService;
 
-    public ChatSystemUserService(ChatSystemUserRepository repository, SystemUserHelper systemUserHelper, ContentContactsService contactsService, ChatContactRepository contactRepository) {
+    public ChatSystemUserService(ChatSystemUserRepository repository, SystemUserHelper systemUserHelper, ContentContactsService contactsService, ChatContactRepository contactRepository, ChatEmailService emailService) {
         this.repository = repository;
         this.systemUserHelper = systemUserHelper;
         this.contactsService = contactsService;
         this.contactRepository = contactRepository;
+        this.emailService = emailService;
     }
 
     @Override
@@ -84,7 +89,12 @@ public class ChatSystemUserService implements ChatSystemUserOperations {
 
     private void handleActivationStep(Registration registration) {
         registration.setPreviousStep(RegistrationStep.ADDRESS);
-        // send email;
+        try {
+            registration.getUser().setActivationCode(RandomStringUtils.random(20, false, true));
+            emailService.sendRegistrationMail(registration.getUser());
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 
 }

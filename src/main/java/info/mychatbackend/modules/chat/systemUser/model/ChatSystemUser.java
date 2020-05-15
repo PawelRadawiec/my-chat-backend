@@ -46,6 +46,8 @@ public class ChatSystemUser implements Serializable {
     @NotEmpty
     private String password;
 
+    private String activationCode;
+
     @OneToMany(mappedBy = "owner")
     @JsonBackReference(value = "content")
     private List<ChatContent> content;
