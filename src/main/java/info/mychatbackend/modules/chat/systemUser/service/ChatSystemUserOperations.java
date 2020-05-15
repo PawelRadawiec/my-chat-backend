@@ -1,6 +1,7 @@
 package info.mychatbackend.modules.chat.systemUser.service;
 
 import info.mychatbackend.modules.chat.systemUser.model.ChatSystemUser;
+import info.mychatbackend.modules.chat.systemUser.model.Registration;
 
 import java.util.List;
 
@@ -12,4 +13,6 @@ public interface ChatSystemUserOperations {
     List<ChatSystemUser> getUserList();
 
     List<ChatSystemUser> search(String username);
+
+    Registration save(Registration request);
 }

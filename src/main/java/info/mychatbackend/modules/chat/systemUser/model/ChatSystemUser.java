@@ -54,5 +54,9 @@ public class ChatSystemUser implements Serializable {
     @JsonBackReference(value = "content-contacts")
     private ChatContentContacts chatContentContacts;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id", referencedColumnName = "id")
+    private Address address;
+
 
 }

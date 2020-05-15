@@ -19,7 +19,10 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         Map<String, String> invalidFields = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach(e -> createError(e, invalidFields));
+        for (ObjectError error : ex.getBindingResult().getAllErrors()) {
+            String field = ((FieldError) error).getField();
+            invalidFields.put(field, error.getDefaultMessage());
+        }
         return new ResponseEntity<>(invalidFields, HttpStatus.BAD_REQUEST);
     }
 
@@ -27,5 +30,6 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         String field = ((FieldError) error).getField();
         invalidFields.put(field, error.getDefaultMessage());
     }
+
 
 }

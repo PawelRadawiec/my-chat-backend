@@ -1,6 +1,7 @@
 package info.mychatbackend.modules.chat.systemUser.controller;
 
 import info.mychatbackend.modules.chat.systemUser.model.ChatSystemUser;
+import info.mychatbackend.modules.chat.systemUser.model.Registration;
 import info.mychatbackend.modules.chat.systemUser.service.ChatSystemUserOperations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,11 @@ public class ChatSystemUserController {
     @GetMapping(value = "/search/{username}")
     public ResponseEntity search(@PathVariable String username) {
         return new ResponseEntity<>(operations.search(username), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/registration/step")
+    public ResponseEntity<Registration> stepRegistration(@RequestBody Registration registration) {
+        return new ResponseEntity<>(operations.save(registration), HttpStatus.OK);
     }
 
 
