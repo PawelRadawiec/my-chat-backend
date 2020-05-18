@@ -89,6 +89,7 @@ public class JWTWebSecurityConfig extends WebSecurityConfigurerAdapter {
                         HttpMethod.POST,
                         authenticationPath,
                         "/chat-user/registration",
+                        "/chat-user/registration/step",
                         "/chat-user/activation/**"
                 )
                 .antMatchers(HttpMethod.OPTIONS, "/**")

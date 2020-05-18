@@ -40,7 +40,6 @@ public class ChatSystemUserService implements ChatSystemUserOperations {
         repository.save(systemUser);
         contactsService.create(systemUser);
         contactRepository.create(new ChatContact(systemUser.getUsername()));
-        // todo send activation mail
         return systemUser;
     }
 
@@ -63,31 +62,31 @@ public class ChatSystemUserService implements ChatSystemUserOperations {
     public Registration save(Registration registration) {
         switch (registration.getCurrentStep()) {
             case ACCOUNT:
-                handleAccountStep(registration);
+                accountStep(registration);
                 break;
             case ADDRESS:
-                handleAddressStep(registration);
+                addressSteps(registration);
                 break;
             case ACTIVATION:
-                handleActivationStep(registration);
+                activationStep(registration);
             default:
         }
         return registration;
     }
 
-    private void handleAccountStep(Registration registration) {
-        registration.setNextStep(RegistrationStep.ADDRESS);
-        registration.setPreviousStep(RegistrationStep.ACCOUNT);
+    private void accountStep(Registration registration) {
+        registration.setCurrentStep(RegistrationStep.ADDRESS);
+        registration.setNextStep(RegistrationStep.ACTIVATION);
         repository.save(registration.getUser());
     }
 
-    private void handleAddressStep(Registration registration) {
-        registration.setNextStep(RegistrationStep.ACTIVATION);
+    private void addressSteps(Registration registration) {
+        registration.setCurrentStep(RegistrationStep.ACTIVATION);
         registration.setPreviousStep(RegistrationStep.ADDRESS);
         repository.save(registration.getUser());
     }
 
-    private void handleActivationStep(Registration registration) {
+    private void activationStep(Registration registration) {
         registration.setPreviousStep(RegistrationStep.ADDRESS);
         try {
             registration.getUser().setActivationCode(RandomStringUtils.random(20, false, true));
