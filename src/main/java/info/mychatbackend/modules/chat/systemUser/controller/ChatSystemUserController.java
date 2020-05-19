@@ -3,8 +3,13 @@ package info.mychatbackend.modules.chat.systemUser.controller;
 import info.mychatbackend.modules.chat.systemUser.model.ChatSystemUser;
 import info.mychatbackend.modules.chat.systemUser.model.Registration;
 import info.mychatbackend.modules.chat.systemUser.service.ChatSystemUserOperations;
+import info.mychatbackend.modules.chat.systemUser.validator.RegistrationValidator;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -16,8 +21,17 @@ public class ChatSystemUserController {
 
     private ChatSystemUserOperations operations;
 
-    public ChatSystemUserController(ChatSystemUserOperations operations) {
+    private final RegistrationValidator validator;
+
+    @InitBinder
+    private void initBinder(WebDataBinder binder) {
+        binder.setValidator(validator);
+    }
+
+    @Autowired
+    public ChatSystemUserController(ChatSystemUserOperations operations, @Qualifier("registrationValidator") RegistrationValidator validator) {
         this.operations = operations;
+        this.validator = validator;
     }
 
     @GetMapping(value = "/list")
@@ -36,9 +50,8 @@ public class ChatSystemUserController {
     }
 
     @PostMapping(value = "/registration/step")
-    public ResponseEntity<Registration> stepRegistration(@RequestBody Registration registration) {
+    public ResponseEntity<Registration> stepRegistration(@Valid  @RequestBody Registration registration) {
         return new ResponseEntity<>(operations.save(registration), HttpStatus.OK);
     }
-
 
 }
