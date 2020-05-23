@@ -35,11 +35,11 @@ public class RegistrationValidator extends GenericValidator implements Validator
         if (registration.getUser() == null) {
             return;
         }
-        validateIfTrue(StringUtils.isEmpty(user.getUsername()), "user.username", ValidationCode.REQUIRED.name(), errors);
-        validateIfTrue(StringUtils.isEmpty(user.getPassword()), "user.password", ValidationCode.REQUIRED.name(), errors);
-        validateIfTrue(StringUtils.isEmpty(user.getEmail()), "user.email", ValidationCode.REQUIRED.name(), errors);
-        validateIfTrue(StringUtils.isEmpty(user.getFirstName()), "user.firstName", ValidationCode.REQUIRED.name(), errors);
-        validateIfTrue(StringUtils.isEmpty(user.getLastName()), "user.lastName", ValidationCode.REQUIRED.name(), errors);
+        validateIfTrue(StringUtils.isEmpty(user.getUsername()), "user.username", ValidationCode.REQUIRED.getValue(), errors);
+        validateIfTrue(StringUtils.isEmpty(user.getPassword()), "user.password", ValidationCode.REQUIRED.getValue(), errors);
+        validateIfTrue(StringUtils.isEmpty(user.getEmail()), "user.email", ValidationCode.REQUIRED.getValue(), errors);
+        validateIfTrue(StringUtils.isEmpty(user.getFirstName()), "user.firstName", ValidationCode.REQUIRED.getValue(), errors);
+        validateIfTrue(StringUtils.isEmpty(user.getLastName()), "user.lastName", ValidationCode.REQUIRED.getValue(), errors);
     }
 
     private void validateAddressStep(Registration registration, Errors errors) {
@@ -50,10 +50,10 @@ public class RegistrationValidator extends GenericValidator implements Validator
         if (address == null) {
             return;
         }
-        validateIfTrue(StringUtils.isEmpty(address.getCity()), "city", ValidationCode.REQUIRED.name(), errors);
-        validateIfTrue(StringUtils.isEmpty(address.getCountry()), "country", ValidationCode.REQUIRED.name(), errors);
-        validateIfTrue(StringUtils.isEmpty(address.getPostalCode()), "postalCode", ValidationCode.REQUIRED.name(), errors);
-        validateIfTrue(StringUtils.isEmpty(address.getStreet()), "street", ValidationCode.REQUIRED.name(), errors);
+        validateIfTrue(StringUtils.isEmpty(address.getCity()), "city", ValidationCode.REQUIRED.getValue(), errors);
+        validateIfTrue(StringUtils.isEmpty(address.getCountry()), "country", ValidationCode.REQUIRED.getValue(), errors);
+        validateIfTrue(StringUtils.isEmpty(address.getPostalCode()), "postalCode", ValidationCode.REQUIRED.getValue(), errors);
+        validateIfTrue(StringUtils.isEmpty(address.getStreet()), "street", ValidationCode.REQUIRED.getValue(), errors);
     }
 
 }

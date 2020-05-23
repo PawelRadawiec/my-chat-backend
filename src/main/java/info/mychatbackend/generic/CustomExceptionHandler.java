@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ import java.util.Map;
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
     @Override
+    @NotNull
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         Map<String, String> invalidFields = new HashMap<>();
         for (ObjectError error : ex.getBindingResult().getAllErrors()) {
@@ -25,11 +27,5 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         }
         return new ResponseEntity<>(invalidFields, HttpStatus.BAD_REQUEST);
     }
-
-    private void createError(ObjectError error, Map<String, String> invalidFields) {
-        String field = ((FieldError) error).getField();
-        invalidFields.put(field, error.getDefaultMessage());
-    }
-
 
 }

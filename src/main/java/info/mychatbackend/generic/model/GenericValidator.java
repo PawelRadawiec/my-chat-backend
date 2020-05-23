@@ -7,8 +7,17 @@ public class GenericValidator {
     protected Errors errors;
 
     public enum ValidationCode {
-        REQUIRED,
-        UNIQUE
+        REQUIRED("must be set"), UNIQUE("must.be.unique");
+
+        private String value;
+
+        ValidationCode(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
     }
 
     public Errors getErrors() {
@@ -21,6 +30,7 @@ public class GenericValidator {
 
     protected void validateIfTrue(Boolean statement, String field, String code, Errors errors) {
         if (statement) {
+            // todo get message from messages properties
             errors.rejectValue(field, code, code);
         }
     }
