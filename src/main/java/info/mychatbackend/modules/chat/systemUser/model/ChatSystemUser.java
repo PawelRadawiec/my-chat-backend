@@ -22,6 +22,14 @@ import java.util.List;
         query = "select csu from ChatSystemUser csu where csu.username = ?1"
 )
 @NamedQuery(
+        name = "chatSystemUser.checkIfEmailExist",
+        query = "select csu.email from ChatSystemUser csu where csu.email = ?1"
+)
+@NamedQuery(
+        name = "chatSystemUser.checkIfUsernameExist",
+        query = "select csu.username from ChatSystemUser csu where csu.username = ?1"
+)
+@NamedQuery(
         name = "chatSystemUser.search",
         query = "select csu from ChatSystemUser csu where csu.username like ?1"
 )

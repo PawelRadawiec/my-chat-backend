@@ -7,7 +7,7 @@ public class GenericValidator {
     protected Errors errors;
 
     public enum ValidationCode {
-        REQUIRED("must be set"), UNIQUE("must.be.unique");
+        REQUIRED("must be set"), UNIQUE("must be unique");
 
         private String value;
 

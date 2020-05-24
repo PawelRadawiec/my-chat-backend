@@ -2,6 +2,7 @@ package info.mychatbackend.modules.chat.systemUser.repository;
 
 import info.mychatbackend.modules.chat.systemUser.model.ChatSystemUser;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -21,6 +22,7 @@ public class ChatSystemUserRepository {
         this.em = em;
     }
 
+    @Transactional
     public ChatSystemUser save(ChatSystemUser systemUser) {
         em.persist(systemUser);
         return systemUser;
@@ -32,6 +34,22 @@ public class ChatSystemUserRepository {
         query.setParameter(1, username);
         List<ChatSystemUser> users = query.getResultList();
         return !users.isEmpty() ? Optional.of(users.get(0)) : Optional.empty();
+    }
+
+    @SuppressWarnings("unchecked")
+    public Optional<String> checkIfEmailExist(String email) {
+        Query query = em.createNamedQuery("chatSystemUser.checkIfEmailExist");
+        query.setParameter(1, email);
+        List<String> emails = query.getResultList();
+        return !emails.isEmpty() ? Optional.of(emails.get(0)) : Optional.empty();
+    }
+
+    @SuppressWarnings("unchecked")
+    public Optional<String> checkIfUsernameExist(String email) {
+        Query query = em.createNamedQuery("chatSystemUser.checkIfUsernameExist");
+        query.setParameter(1, email);
+        List<String> usernameList = query.getResultList();
+        return !usernameList.isEmpty() ? Optional.of(usernameList.get(0)) : Optional.empty();
     }
 
     public List<ChatSystemUser> getUserList() {

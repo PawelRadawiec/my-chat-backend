@@ -59,6 +59,7 @@ public class ChatSystemUserService implements ChatSystemUserOperations {
     }
 
     @Override
+    @Transactional
     public Registration save(Registration registration) {
         switch (registration.getCurrentStep()) {
             case ACCOUNT:
@@ -66,9 +67,8 @@ public class ChatSystemUserService implements ChatSystemUserOperations {
                 break;
             case ADDRESS:
                 addressSteps(registration);
+                sendActivationEmail(registration);
                 break;
-            case ACTIVATION:
-                activationStep(registration);
             default:
         }
         return registration;
@@ -86,8 +86,7 @@ public class ChatSystemUserService implements ChatSystemUserOperations {
         repository.save(registration.getUser());
     }
 
-    private void activationStep(Registration registration) {
-        registration.setPreviousStep(RegistrationStep.ADDRESS);
+    private void sendActivationEmail(Registration registration) {
         try {
             registration.getUser().setActivationCode(RandomStringUtils.random(20, false, true));
             emailService.sendRegistrationMail(registration.getUser());
